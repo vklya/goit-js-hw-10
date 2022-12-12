@@ -43,6 +43,7 @@ function countriesList(countries) {
     })
         .join('');
     refs.list.insertAdjacentHTML('beforeend', markup);
+    refs.info.innerHTML = '';
 }
 
 function oneCountry(countries) {
@@ -57,6 +58,7 @@ function oneCountry(countries) {
         <p>Languages: ${Object.values(languages).join(', ')}</p>`;
     })
     refs.info.insertAdjacentHTML('beforeend', markup);
+    refs.list.innerHTML = '';
 }
 
 function error() {
