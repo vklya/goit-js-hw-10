@@ -23,11 +23,6 @@ function onInput() {
     fetchCountries(name).then(success).catch(error);
 }
 
-function reset() {
-    refs.info.innerHTML = '';
-    refs.list.innerHTML = '';
-}
-
 function success(countries) {
     if (countries.length > 10) tooManyCountries(countries);
     if (countries.length > 1  && data.length <= 10) countriesList(countries);
@@ -42,9 +37,9 @@ function tooManyCountries(countries) {
 }
 
 function countriesList(countries) {
-    const markup = countries.map(({  flags: { svg }, name: { official }, }) => {
+    const markup = countries.map(({ flags: { svg }, name: { official }, }) => {
         return `<li>
-        <img src="${svg}" alt="${official}" width="40" >  ${official}</li>`;
+        <img src="${svg}" alt="${official}" width="30" height="20" >  ${official}</li>`;
     })
         .join('');
     refs.list.insertAdjacentHTML('beforeend', markup);
@@ -57,9 +52,9 @@ function oneCountry(countries) {
         <img width="40" src="${svg}" />
         <h2>${official}</h2>
         </div>
-        <p><span>Capital</span>: ${capital}</p>
-        <p><span>Population</span>: ${population}</p>
-        <p><span>Languages</span>: ${Object.values(languages).join(', ')}</p>`;
+        <p>Capital: ${capital}</p>
+        <p>Population: ${population}</p>
+        <p>Languages: ${Object.values(languages).join(', ')}</p>`;
     })
     refs.info.insertAdjacentHTML('beforeend', markup);
 }
@@ -69,4 +64,7 @@ function error() {
     reset();
 }
 
-
+function reset() {
+    refs.info.innerHTML = '';
+    refs.list.innerHTML = '';
+}
