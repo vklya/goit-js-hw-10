@@ -25,7 +25,7 @@ function onInput() {
 
 function success(countries) {
     if (countries.length > 10) tooManyCountries(countries);
-    if (countries.length > 1  && data.length <= 10) countriesList(countries);
+    if (countries.length > 1  && countries.length <= 10) countriesList(countries);
     if (countries.length === 1) oneCountry(countries);
 }
 
