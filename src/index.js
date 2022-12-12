@@ -16,8 +16,10 @@ refs.input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 function onInput() {
     const name = refs.input.value.trim();
     if (name.length < 1) reset();
-    if (!name) return;
-
+    if (!name) {
+        reset();
+        return;
+    }
     fetchCountries(name).then(success).catch(error);
 }
 
@@ -26,20 +28,21 @@ function reset() {
     refs.list.innerHTML = '';
 }
 
-function success(data) {
-    if (data.length > 10) tooManyCountries();
-    if (data.length > 1 && data.length <= 10) countriesList();
-    if (data.length === 1) oneCountry();
+function success(countries) {
+    if (countries.length > 10) tooManyCountries(countries);
+    if (countries.length > 1  && data.length <= 10) countriesList(countries);
+    if (countries.length === 1) oneCountry(countries);
 }
 
-function tooManyCountries() {
-        Notify.info(
-            'Too many matches found. Please enter a more specific name.'
-        );
+function tooManyCountries(countries) {
+    Notify.info(
+        'Too many matches found. Please enter a more specific name.'
+    );
+    reset();
 }
 
 function countriesList(countries) {
-    const markup = countries.map(({ flags: { svg }, name: { official } }) => {
+    const markup = countries.map(({  flags: { svg }, name: { official }, }) => {
         return `<li>
         <img src="${svg}" alt="${official}" width="40" >  ${official}</li>`;
     })
@@ -49,9 +52,9 @@ function countriesList(countries) {
 
 function oneCountry(countries) {
     const markup = countries.map(({
-        flags: { svg }, name: { official }, capital, population, languages }) => {
+        flags: { svg }, name: { official }, capital, population, languages, }) => {
         return `<div>
-        <img width="24" src="${svg}" />
+        <img width="40" src="${svg}" />
         <h2>${official}</h2>
         </div>
         <p><span>Capital</span>: ${capital}</p>
