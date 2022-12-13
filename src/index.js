@@ -37,16 +37,17 @@ function tooManyCountries(countries) {
 }
 
 function countriesList(countries) {
+    reset();
     const markup = countries.map(({ flags: { svg }, name: { official }, }) => {
         return `<li>
         <img src="${svg}" alt="${official}" width="30" height="20" >  ${official}</li>`;
     })
         .join('');
     refs.list.insertAdjacentHTML('beforeend', markup);
-    refs.info.innerHTML = '';
 }
 
 function oneCountry(countries) {
+    reset();
     const markup = countries.map(({
         flags: { svg }, name: { official }, capital, population, languages, }) => {
         return `<div>
@@ -58,7 +59,6 @@ function oneCountry(countries) {
         <p>Languages: ${Object.values(languages).join(', ')}</p>`;
     })
     refs.info.insertAdjacentHTML('beforeend', markup);
-    refs.list.innerHTML = '';
 }
 
 function error() {
