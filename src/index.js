@@ -13,8 +13,8 @@ const refs = {
 
 refs.input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
-function onInput() {
-    const name = refs.input.value.trim();
+function onInput(e) {
+    const name = e.target.value.trim();
     if (name.length < 1) reset();
     if (!name) {
         reset();
